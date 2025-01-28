@@ -78,13 +78,15 @@ jobs:
     needs: build-and-push
 
     steps:
-      - name: Trigger deployment
+      - name: Deploy backend to Render
         run: |
           curl -X POST -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
             -H "Content-Type: application/json" \
             -d '{"serviceId": "<backend_service_id>"}' \
             https://api.render.com/v1/deploys
 
+      - name: Deploy frontend to Render
+        run: |
           curl -X POST -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
             -H "Content-Type: application/json" \
             -d '{"serviceId": "<frontend_service_id>"}' \
